@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawPal · all-in-one pet hub</title>
+    <!-- Font Awesome for icons & clean look -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f9f3f0 0%, #fff9f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        /* main card – glassmorphism + soft shadow */
+        .landing {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.75);
+            backdrop-filter: blur(4px);
+            border-radius: 60px 60px 40px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 8px 20px rgba(0,0,0,0.05);
+            padding: 2.5rem 3rem 3rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 235, 220, 0.6);
+        }
+
+        /* ------ HERO / PET PICTURES ------ */
+        .hero-pets {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.2rem;
+        }
+
+        .pet-avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.08));
+            transition: transform 0.25s;
+        }
+        .pet-avatar:hover {
+            transform: translateY(-6px);
+        }
+
+        .pet-avatar img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+            background: #fff4e8;
+        }
+
+        .pet-avatar span {
+            margin-top: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: rgba(255,255,240,0.7);
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            color: #3b2c1e;
+            letter-spacing: 0.3px;
+            border: 1px solid #f0dac8;
+        }
+
+        /* main headline */
+        .tagline {
+            text-align: center;
+            margin: 1rem 0 2rem;
+        }
+        .tagline h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #2e1f13;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            text-shadow: 0 4px 12px rgba(237, 157, 92, 0.15);
+        }
+        .tagline h1 i {
+            color: #d97c4a;
+            margin: 0 6px;
+        }
+        .tagline p {
+            font-size: 1.25rem;
+            color: #5d4a38;
+            margin-top: 8px;
+            font-weight: 400;
+            background: rgba(235, 215, 195, 0.25);
+            display: inline-block;
+            padding: 0.3rem 2.2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            border: 1px solid #ebd3c0;
+        }
+
+        /* ------ SERVICES GRID (catchy) ------ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem 1.2rem;
+            margin: 2.5rem 0 2.8rem;
+        }
+
+        .service-item {
+            background: rgba(255, 248, 240, 0.7);
+            backdrop-filter: blur(2px);
+            padding: 0.9rem 0.4rem;
+            border-radius: 100px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #3f2c1b;
+            border: 1px solid #fce7d8;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            letter-spacing: 0.2px;
+        }
+
+        .service-item i {
+            color: #b45f3a;
+            font-size: 1.2rem;
+            width: 1.8rem;
+        }
+        .service-item:hover {
+            background: #fce8db;
+            border-color: #dba57c;
+            transform: scale(1.02);
+            box-shadow: 0 8px 14px rgba(186, 112, 64, 0.12);
+        }
+
+        /* ------ SIGN-IN AREA (with loading simulation) ------ */
+        .signin-section {
+            background: rgba(250, 237, 226, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 80px 80px 40px 40px;
+            padding: 2.2rem 2.8rem;
+            margin: 1.8rem 0 0.8rem;
+            border: 1px solid #eedbcb;
+            box-shadow: inset 0 2px 6px rgba(255, 215, 180, 0.3);
+            transition: 0.3s;
+        }
+
+        .signin-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .signin-prompt {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem 2rem;
+            width: 100%;
+        }
+
+        .signin-prompt label {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #3d2b1b;
+            letter-spacing: -0.2px;
+            background: rgba(255, 235, 215, 0.4);
+            padding: 0.3rem 1.6rem;
+            border-radius: 60px;
+            border: 1px dashed #c6a787;
+        }
+
+        .signin-input-area {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 248, 240, 0.7);
+            padding: 0.6rem 1.6rem 0.6rem 2rem;
+            border-radius: 80px;
+            backdrop-filter: blur(2px);
+            border: 1px solid #dbbca4;
+            flex: 1 1 380px;
+        }
+
+        .signin-input-area input {
+            flex: 1;
+            min-width: 180px;
+            border: none;
+            background: transparent;
+            padding: 0.8rem 0.2rem;
+            font-size: 1rem;
+            outline: none;
+            color: #2b1d11;
+            font-weight: 500;
+        }
+        .signin-input-area input::placeholder {
+            color: #a38670;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .signin-btn {
+            background: #d88b5e;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 10px 18px -8px rgba(181, 104, 51, 0.4);
+            border: 1px solid #f3d2b8;
+            letter-spacing: 0.4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .signin-btn:hover {
+            background: #c07347;
+            transform: scale(1.02);
+            box-shadow: 0 14px 22px -8px #b87042;
+        }
+
+        /* ------ LOADING / THREE DOTS (hidden by default) ------ */
+        .loading-area {
+            margin-top: 0.5rem;
+            display: none; /* hidden until sign-in link is provided */
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 1rem 1.2rem;
+            background: rgba(235, 215, 195, 0.2);
+            border-radius: 80px;
+            width: 100%;
+            backdrop-filter: blur(2px);
+            border: 1px solid #ecd3be;
+            transition: 0.4s;
+        }
+
+        .loading-area.active {
+            display: flex;
+            animation: fadeSlide 0.4s ease;
+        }
+
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(-6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .loading-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #4d341f;
+            background: rgba(255, 242, 230, 0.6);
+            padding: 0.6rem 2.8rem;
+            border-radius: 60px;
+            border: 1px solid #dbbca4;
+        }
+
+        .loading-message i {
+            margin-right: 10px;
+            color: #b45f3a;
+        }
+
+        .dots-instruction {
+            font-size: 1rem;
+            background: #f2e1d3;
+            padding: 0.6rem 2.2rem;
+            border-radius: 60px;
+            color: #2d1f13;
+            font-weight: 500;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid #e7cfbb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dots-instruction i {
+            font-size: 1.6rem;
+            color: #8f5e3d;
+            letter-spacing: 6px;
+        }
+
+        .fake-loader {
+            display: flex;
+            gap: 14px;
+            margin: 8px 0;
+        }
+        .fake-loader span {
+            width: 18px;
+            height: 18px;
+            background: #bb8b6b;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseDots 1.4s infinite ease-in-out;
+        }
+        .fake-loader span:nth-child(2) { animation-delay: 0.2s; }
+        .fake-loader span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulseDots {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.3; background: #b9825e; }
+            40% { transform: scale(1); opacity: 1; background: #ad6f47; }
+        }
+
+        /* small footer */
+        .footnote {
+            margin-top: 2rem;
+            text-align: center;
+            color: #977f6b;
+            font-size: 0.8rem;
+            border-top: 1px solid #e7d3c0;
+            padding-top: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* responsiveness */
+        @media (max-width: 700px) {
+            .landing { padding: 1.8rem; }
+            .tagline h1 { font-size: 2.4rem; }
+            .signin-section { padding: 1.5rem 1rem; }
+            .signin-input-area { padding: 0.4rem 1rem; }
+            .pet-avatar img { width: 70px; height: 70px; }
+            .services-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+        }
+        @media (max-width: 500px) {
+            .signin-prompt label { font-size: 1rem; }
+            .dots-instruction { font-size: 0.9rem; flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="landing">
+
+    <!-- PET IMAGES: dog, cat, bird (catchy + attractive) -->
+    <div class="hero-pets">
+        <div class="pet-avatar">
+            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=200&h=200&fit=crop&crop=face&auto=format" alt="happy dog" loading="lazy">
+            <span>🐾 dog</span>
+        </div>
+        <div class="pet-avatar">
+            <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=200&h=200&fit=crop&crop=face&auto=format" alt="curious cat" loading="lazy">
+            <span>🐈 cat</span>
+        </div>
+        <div class="pet-avatar">
+            <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=200&h=200&fit=crop&crop=face&auto=format" alt="colorful bird" loading="lazy">
+            <span>🐦 bird</span>
+        </div>
+    </div>
+
+    <!-- TAGLINE -->
+    <div class="tagline">
+        <h1>🐕 <i class="fas fa-paw"></i> PawPal <i class="fas fa-paw"></i> 🐈</h1>
+        <p>everything your pet needs · all in one place</p>
+    </div>
+
+    <!-- SERVICES GRID (all 12 services) -->
+    <div class="services-grid">
+        <div class="service-item"><i class="fas fa-stethoscope"></i> Vet</div>
+        <div class="service-item"><i class="fas fa-cut"></i> Grooming</div>
+        <div class="service-item"><i class="fas fa-bed"></i> Boarding/daycare</div>
+        <div class="service-item"><i class="fas fa-walking"></i> Dog walking</div>
+        <div class="service-item"><i class="fas fa-paw"></i> Pet sitting</div>
+        <div class="service-item"><i class="fas fa-search-location"></i> Lost & found</div>
+        <div class="service-item"><i class="fas fa-map-pin"></i> GPS tracking</div>
+        <div class="service-item"><i class="fas fa-heart"></i> Adoption</div>
+        <div class="service-item"><i class="fas fa-store"></i> Marketplace</div>
+        <div class="service-item"><i class="fas fa-brain"></i> Training</div>
+        <div class="service-item"><i class="fas fa-shield-alt"></i> Insurance</div>
+        <div class="service-item"><i class="fas fa-notes-medical"></i> Vaccination</div>
+        <div class="service-item"><i class="fas fa-users"></i> Community</div>
+    </div>
+
+    <!-- SIGN IN + LOADING SECTION -->
+    <div class="signin-section">
+        <div class="signin-wrapper">
+
+            <!-- Sign‑in prompt + link input -->
+            <div class="signin-prompt">
+                <label for="signinLink"><i class="fas fa-link"></i> sign in link</label>
+                <div class="signin-input-area">
+                    <input type="url" id="signinLink" placeholder="https://your‑portal.com/... " value="https://pawpal.example/signin">
+                    <button class="signin-btn" id="signinActionBtn"><i class="fas fa-arrow-right-to-bracket"></i> Go</button>
+                </div>
+            </div>
+
+            <!-- LOADING AREA (hidden initially) with three dots + instruction -->
+            <div class="loading-area" id="loadingArea">
+                <div class="loading-message">
+                    <i class="fas fa-circle-notch fa-spin"></i> website is loading, please wait…
+                </div>
+                <div class="fake-loader">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="dots-instruction">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <span>press the three dots on the loading page to activate your keyboard</span>
+                    <i class="fas fa-keyboard"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footnote">
+        <i class="fas fa-paw" style="color:#b97d5a;"></i>  trusted by 10k+ pet parents  <i class="fas fa-paw" style="color:#b97d5a;"></i>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const signinBtn = document.getElementById('signinActionBtn');
+        const loadingArea = document.getElementById('loadingArea');
+        const linkInput = document.getElementById('signinLink');
+
+        // Function to show loading area with a smooth effect
+        function showLoading() {
+            // if there's a link (even a placeholder) we display the loading area
+            const link = linkInput.value.trim();
+            if (link === '') {
+                // if empty, we still show but we add a friendly message
+                // but we want to show anyway, because the user can provide a link.
+                // we also want to tell user to wait.
+                loadingArea.classList.add('active');
+                // keep the instruction visible.
+                return;
+            }
+            // show loading
+            loadingArea.classList.add('active');
+        }
+
+        // Event listener for the sign-in button
+        signinBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // show loading area immediately
+            showLoading();
+            // additionally, you can simulate a "wait" feedback 
+            // (the user is told to wait, we keep loading visible)
+            // The instruction about three dots stays visible.
+        });
+
+        // Also if the user presses "Enter" in the input field
+        linkInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                signinBtn.click();
+            }
+        });
+
+        // For demonstration: if the page loads with a default link, we could show loading 
+        // but we want it hidden initially – so we keep it hidden unless user clicks.
+        // However we also want to let the user know that after providing the link 
+        // they should see loading. We'll keep it hidden initially.
+        // But we also want to be able to show it if they click. 
+        // Additional: we can also pre-fill the link with a sample.
+        // Also we want the user to be told to wait and press three dots.
+        // all good.
+
+        // (optional) if the user clears the input and clicks, still shows loading.
+        console.log('🐾 PawPal landing ready. Click "Go" to see loading & three dots instruction.');
+    })();
+</script>
+
+<!-- extra: three dots instruction visible only when loading active -->
+<!-- the loading area is hidden by default, but will appear on sign-in click -->
+
+</body>
+</html>
