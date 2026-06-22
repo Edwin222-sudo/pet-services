@@ -239,10 +239,67 @@
             box-shadow: 0 14px 22px -8px #b87042;
         }
 
-        /* ------ LOADING / THREE DOTS (hidden by default) ------ */
+        /* --- PERMANENT VISIBLE INSTRUCTION (three dots) --- */
+        .dots-instruction-permanent {
+            font-size: 1.2rem;
+            background: #fce4d4;
+            padding: 0.9rem 2.5rem;
+            border-radius: 60px;
+            color: #2d1f13;
+            font-weight: 700;
+            box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25);
+            border: 2px solid #dba57c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 750px;
+            margin: 0.5rem auto 0;
+            letter-spacing: 0.3px;
+            animation: softPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes softPulse {
+            0% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
+            50% { transform: scale(1.02); box-shadow: 0 12px 28px rgba(181, 104, 51, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
+        }
+
+        .dots-instruction-permanent i {
+            font-size: 2rem;
+            color: #8f5e3d;
+            letter-spacing: 8px;
+            background: rgba(255, 235, 215, 0.6);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+
+        .dots-instruction-permanent .highlight-text {
+            background: #d88b5e;
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.6px;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+        }
+
+        .dots-instruction-permanent .keyboard-icon {
+            font-size: 1.8rem;
+            color: #5d3a24;
+            background: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* ------ LOADING AREA (hidden by default, appears after click) ------ */
         .loading-area {
             margin-top: 0.5rem;
-            display: none; /* hidden until sign-in link is provided */
+            display: none;
             flex-direction: column;
             align-items: center;
             gap: 0.6rem;
@@ -278,64 +335,6 @@
         .loading-message i {
             margin-right: 10px;
             color: #b45f3a;
-        }
-
-        /* --- IMPROVED VISIBILITY for the three dots instruction --- */
-        .dots-instruction {
-            font-size: 1.2rem;
-            background: #fce4d4;  /* warmer, more visible background */
-            padding: 0.9rem 2.5rem;
-            border-radius: 60px;
-            color: #2d1f13;
-            font-weight: 700;  /* bolder text */
-            box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); /* stronger shadow */
-            border: 2px solid #dba57c;  /* thicker, contrasting border */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
-            letter-spacing: 0.3px;
-            transition: 0.2s;
-            animation: softPulse 2s infinite ease-in-out;  /* gentle pulse to draw eye */
-        }
-
-        @keyframes softPulse {
-            0% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
-            50% { transform: scale(1.02); box-shadow: 0 12px 28px rgba(181, 104, 51, 0.4); }
-            100% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
-        }
-
-        .dots-instruction i {
-            font-size: 2rem;
-            color: #8f5e3d;
-            letter-spacing: 8px;
-            background: rgba(255, 235, 215, 0.6);
-            padding: 0.2rem 0.8rem;
-            border-radius: 40px;
-        }
-
-        .dots-instruction .highlight-text {
-            background: #d88b5e;
-            color: white;
-            padding: 0.2rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 0.6px;
-            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
-        }
-
-        .dots-instruction .keyboard-icon {
-            font-size: 1.8rem;
-            color: #5d3a24;
-            background: white;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .fake-loader {
@@ -376,11 +375,11 @@
             .signin-input-area { padding: 0.4rem 1rem; }
             .pet-avatar img { width: 70px; height: 70px; }
             .services-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-            .dots-instruction { font-size: 1rem; padding: 0.8rem 1.2rem; gap: 10px; }
+            .dots-instruction-permanent { font-size: 1rem; padding: 0.8rem 1.2rem; gap: 10px; }
         }
         @media (max-width: 500px) {
             .signin-prompt label { font-size: 1rem; }
-            .dots-instruction { font-size: 0.9rem; flex-direction: column; }
+            .dots-instruction-permanent { font-size: 0.9rem; flex-direction: column; }
         }
     </style>
 </head>
@@ -431,7 +430,7 @@
     <div class="signin-section">
         <div class="signin-wrapper">
 
-            <!-- Sign‑in prompt + link input (pre-filled with your link) -->
+            <!-- Sign‑in prompt + link input (pre-filled) -->
             <div class="signin-prompt">
                 <label for="signinLink"><i class="fas fa-link"></i> sign in link</label>
                 <div class="signin-input-area">
@@ -440,7 +439,16 @@
                 </div>
             </div>
 
-            <!-- LOADING AREA (hidden initially) with ENHANCED three dots instruction -->
+            <!-- PERMANENT VISIBLE INSTRUCTION (three dots) - always visible before clicking -->
+            <div class="dots-instruction-permanent">
+                <i class="fas fa-ellipsis-h"></i>
+                <span>press the <span class="highlight-text">three dots</span> on the loading page</span>
+                <i class="fas fa-arrow-right" style="color:#8f5e3d; font-size:1.4rem;"></i>
+                <span class="keyboard-icon"><i class="fas fa-keyboard"></i></span>
+                <span style="font-weight:600;">activate keyboard</span>
+            </div>
+
+            <!-- LOADING AREA (hidden initially, appears after click) -->
             <div class="loading-area" id="loadingArea">
                 <div class="loading-message">
                     <i class="fas fa-circle-notch fa-spin"></i> website is loading, please wait…
@@ -448,13 +456,9 @@
                 <div class="fake-loader">
                     <span></span><span></span><span></span>
                 </div>
-                <!-- IMPROVED VISIBILITY: larger, bolder, with pulse animation and highlighted text -->
-                <div class="dots-instruction">
-                    <i class="fas fa-ellipsis-h"></i>
-                    <span>press the <span class="highlight-text">three dots</span> on the loading page</span>
-                    <i class="fas fa-arrow-right" style="color:#8f5e3d; font-size:1.4rem;"></i>
-                    <span class="keyboard-icon"><i class="fas fa-keyboard"></i></span>
-                    <span style="font-weight:600;">activate keyboard</span>
+                <!-- instruction is also here inside loading, but now it's redundant, yet we keep it for consistency -->
+                <div style="font-size:0.9rem; color:#5d3a24; background:rgba(255,235,215,0.5); padding:0.3rem 1.5rem; border-radius:40px; border:1px solid #dbbca4;">
+                    <i class="fas fa-ellipsis-h"></i> remember: press the three dots to activate your keyboard
                 </div>
             </div>
 
@@ -503,7 +507,7 @@
             }
         });
 
-        console.log('🐾 PawPal landing ready. Click "Go" to simulate redirection.');
+        console.log('🐾 PawPal landing ready. The three-dots instruction is always visible on the page.');
     })();
 </script>
 
