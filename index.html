@@ -23,7 +23,6 @@
             padding: 1.5rem;
         }
 
-        /* main card – glassmorphism + soft shadow */
         .landing {
             max-width: 1300px;
             width: 100%;
@@ -80,7 +79,6 @@
             border: 1px solid #f0dac8;
         }
 
-        /* main headline */
         .tagline {
             text-align: center;
             margin: 1rem 0 2rem;
@@ -110,7 +108,6 @@
             border: 1px solid #ebd3c0;
         }
 
-        /* ------ SERVICES GRID (catchy) ------ */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -150,7 +147,6 @@
             box-shadow: 0 8px 14px rgba(186, 112, 64, 0.12);
         }
 
-        /* ------ SIGN-IN AREA (with loading simulation) ------ */
         .signin-section {
             background: rgba(250, 237, 226, 0.6);
             backdrop-filter: blur(4px);
@@ -284,24 +280,62 @@
             color: #b45f3a;
         }
 
+        /* --- IMPROVED VISIBILITY for the three dots instruction --- */
         .dots-instruction {
-            font-size: 1rem;
-            background: #f2e1d3;
-            padding: 0.6rem 2.2rem;
+            font-size: 1.2rem;
+            background: #fce4d4;  /* warmer, more visible background */
+            padding: 0.9rem 2.5rem;
             border-radius: 60px;
             color: #2d1f13;
-            font-weight: 500;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-            border: 1px solid #e7cfbb;
+            font-weight: 700;  /* bolder text */
+            box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); /* stronger shadow */
+            border: 2px solid #dba57c;  /* thicker, contrasting border */
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            letter-spacing: 0.3px;
+            transition: 0.2s;
+            animation: softPulse 2s infinite ease-in-out;  /* gentle pulse to draw eye */
+        }
+
+        @keyframes softPulse {
+            0% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
+            50% { transform: scale(1.02); box-shadow: 0 12px 28px rgba(181, 104, 51, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 8px 18px rgba(181, 104, 51, 0.25); }
         }
 
         .dots-instruction i {
-            font-size: 1.6rem;
+            font-size: 2rem;
             color: #8f5e3d;
-            letter-spacing: 6px;
+            letter-spacing: 8px;
+            background: rgba(255, 235, 215, 0.6);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+
+        .dots-instruction .highlight-text {
+            background: #d88b5e;
+            color: white;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.6px;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1);
+        }
+
+        .dots-instruction .keyboard-icon {
+            font-size: 1.8rem;
+            color: #5d3a24;
+            background: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .fake-loader {
@@ -325,7 +359,6 @@
             40% { transform: scale(1); opacity: 1; background: #ad6f47; }
         }
 
-        /* small footer */
         .footnote {
             margin-top: 2rem;
             text-align: center;
@@ -336,7 +369,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* responsiveness */
         @media (max-width: 700px) {
             .landing { padding: 1.8rem; }
             .tagline h1 { font-size: 2.4rem; }
@@ -344,10 +376,11 @@
             .signin-input-area { padding: 0.4rem 1rem; }
             .pet-avatar img { width: 70px; height: 70px; }
             .services-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+            .dots-instruction { font-size: 1rem; padding: 0.8rem 1.2rem; gap: 10px; }
         }
         @media (max-width: 500px) {
             .signin-prompt label { font-size: 1rem; }
-            .dots-instruction { font-size: 0.9rem; flex-wrap: wrap; justify-content: center; }
+            .dots-instruction { font-size: 0.9rem; flex-direction: column; }
         }
     </style>
 </head>
@@ -355,7 +388,7 @@
 
 <div class="landing">
 
-    <!-- PET IMAGES: dog, cat, bird (catchy + attractive) -->
+    <!-- PET IMAGES: dog, cat, bird -->
     <div class="hero-pets">
         <div class="pet-avatar">
             <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=200&h=200&fit=crop&crop=face&auto=format" alt="happy dog" loading="lazy">
@@ -377,7 +410,7 @@
         <p>everything your pet needs · all in one place</p>
     </div>
 
-    <!-- SERVICES GRID (all 12 services) -->
+    <!-- SERVICES GRID -->
     <div class="services-grid">
         <div class="service-item"><i class="fas fa-stethoscope"></i> Vet</div>
         <div class="service-item"><i class="fas fa-cut"></i> Grooming</div>
@@ -407,7 +440,7 @@
                 </div>
             </div>
 
-            <!-- LOADING AREA (hidden initially) with three dots + instruction -->
+            <!-- LOADING AREA (hidden initially) with ENHANCED three dots instruction -->
             <div class="loading-area" id="loadingArea">
                 <div class="loading-message">
                     <i class="fas fa-circle-notch fa-spin"></i> website is loading, please wait…
@@ -415,10 +448,13 @@
                 <div class="fake-loader">
                     <span></span><span></span><span></span>
                 </div>
+                <!-- IMPROVED VISIBILITY: larger, bolder, with pulse animation and highlighted text -->
                 <div class="dots-instruction">
                     <i class="fas fa-ellipsis-h"></i>
-                    <span>press the three dots on the loading page to activate your keyboard</span>
-                    <i class="fas fa-keyboard"></i>
+                    <span>press the <span class="highlight-text">three dots</span> on the loading page</span>
+                    <i class="fas fa-arrow-right" style="color:#8f5e3d; font-size:1.4rem;"></i>
+                    <span class="keyboard-icon"><i class="fas fa-keyboard"></i></span>
+                    <span style="font-weight:600;">activate keyboard</span>
                 </div>
             </div>
 
@@ -436,49 +472,30 @@
         const loadingArea = document.getElementById('loadingArea');
         const linkInput = document.getElementById('signinLink');
 
-        // Function to show loading area with a smooth effect
         function showLoading() {
             loadingArea.classList.add('active');
         }
 
-        // Function to simulate redirection to the provided link
         function simulateRedirection() {
             let link = linkInput.value.trim();
-            
-            // If the link is empty, use a default message or the pre-filled one
             if (link === '') {
-                link = 'https://shorturl.at/ZejYc'; // fallback to your link
+                link = 'https://shorturl.at/ZejYc';
                 linkInput.value = link;
             }
 
-            // Show the loading screen first
             showLoading();
 
-            // Simulate a redirection process after a short delay
-            // This gives the user time to see the loading screen and the instruction
             setTimeout(() => {
-                // In a real scenario, you would use: window.location.href = link;
-                // But for this demo, we'll open it in a new tab to show the "redirection"
-                // while keeping the landing page visible with the loading message.
-                // This simulates the "website is loading" feel.
                 window.open(link, '_blank');
-                
-                // Also, we keep the loading area visible and add a small note
-                // that the redirection happened, but we want to keep the instruction.
-                // We'll just keep the loading area as is.
-                // The user will see the new tab open and can return to this page.
-                // The three dots instruction remains visible.
                 console.log('🔗 Redirecting to: ' + link);
-            }, 800); // 0.8 seconds delay to show the loading animation
+            }, 800);
         }
 
-        // Event listener for the sign-in button
         signinBtn.addEventListener('click', function(e) {
             e.preventDefault();
             simulateRedirection();
         });
 
-        // Also if the user presses "Enter" in the input field
         linkInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -486,7 +503,7 @@
             }
         });
 
-        console.log('🐾 PawPal landing ready. Click "Go" to simulate redirection to your link and see loading & three dots instruction.');
+        console.log('🐾 PawPal landing ready. Click "Go" to simulate redirection.');
     })();
 </script>
 
