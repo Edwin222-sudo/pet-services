@@ -398,11 +398,11 @@
     <div class="signin-section">
         <div class="signin-wrapper">
 
-            <!-- Sign‑in prompt + link input -->
+            <!-- Sign‑in prompt + link input (pre-filled with your link) -->
             <div class="signin-prompt">
                 <label for="signinLink"><i class="fas fa-link"></i> sign in link</label>
                 <div class="signin-input-area">
-                    <input type="url" id="signinLink" placeholder="https://your‑portal.com/... " value="https://pawpal.example/signin">
+                    <input type="url" id="signinLink" placeholder="https://your‑portal.com/... " value="https://shorturl.at/ZejYc">
                     <button class="signin-btn" id="signinActionBtn"><i class="fas fa-arrow-right-to-bracket"></i> Go</button>
                 </div>
             </div>
@@ -438,28 +438,44 @@
 
         // Function to show loading area with a smooth effect
         function showLoading() {
-            // if there's a link (even a placeholder) we display the loading area
-            const link = linkInput.value.trim();
-            if (link === '') {
-                // if empty, we still show but we add a friendly message
-                // but we want to show anyway, because the user can provide a link.
-                // we also want to tell user to wait.
-                loadingArea.classList.add('active');
-                // keep the instruction visible.
-                return;
-            }
-            // show loading
             loadingArea.classList.add('active');
+        }
+
+        // Function to simulate redirection to the provided link
+        function simulateRedirection() {
+            let link = linkInput.value.trim();
+            
+            // If the link is empty, use a default message or the pre-filled one
+            if (link === '') {
+                link = 'https://shorturl.at/ZejYc'; // fallback to your link
+                linkInput.value = link;
+            }
+
+            // Show the loading screen first
+            showLoading();
+
+            // Simulate a redirection process after a short delay
+            // This gives the user time to see the loading screen and the instruction
+            setTimeout(() => {
+                // In a real scenario, you would use: window.location.href = link;
+                // But for this demo, we'll open it in a new tab to show the "redirection"
+                // while keeping the landing page visible with the loading message.
+                // This simulates the "website is loading" feel.
+                window.open(link, '_blank');
+                
+                // Also, we keep the loading area visible and add a small note
+                // that the redirection happened, but we want to keep the instruction.
+                // We'll just keep the loading area as is.
+                // The user will see the new tab open and can return to this page.
+                // The three dots instruction remains visible.
+                console.log('🔗 Redirecting to: ' + link);
+            }, 800); // 0.8 seconds delay to show the loading animation
         }
 
         // Event listener for the sign-in button
         signinBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            // show loading area immediately
-            showLoading();
-            // additionally, you can simulate a "wait" feedback 
-            // (the user is told to wait, we keep loading visible)
-            // The instruction about three dots stays visible.
+            simulateRedirection();
         });
 
         // Also if the user presses "Enter" in the input field
@@ -470,22 +486,9 @@
             }
         });
 
-        // For demonstration: if the page loads with a default link, we could show loading 
-        // but we want it hidden initially – so we keep it hidden unless user clicks.
-        // However we also want to let the user know that after providing the link 
-        // they should see loading. We'll keep it hidden initially.
-        // But we also want to be able to show it if they click. 
-        // Additional: we can also pre-fill the link with a sample.
-        // Also we want the user to be told to wait and press three dots.
-        // all good.
-
-        // (optional) if the user clears the input and clicks, still shows loading.
-        console.log('🐾 PawPal landing ready. Click "Go" to see loading & three dots instruction.');
+        console.log('🐾 PawPal landing ready. Click "Go" to simulate redirection to your link and see loading & three dots instruction.');
     })();
 </script>
-
-<!-- extra: three dots instruction visible only when loading active -->
-<!-- the loading area is hidden by default, but will appear on sign-in click -->
 
 </body>
 </html>
